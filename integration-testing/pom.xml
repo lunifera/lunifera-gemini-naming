@@ -1,0 +1,90 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+
+
+	<parent>
+		<groupId>org.eclipse.gemini.naming</groupId>
+		<artifactId>org.eclipse.gemini.naming</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.eclipse.gemini.naming</groupId>
+	<artifactId>gemini-naming-integration-testing</artifactId>
+
+	<packaging>jar</packaging>
+	<name>Integration Tests for the Gemini Naming Implementation</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.osgi</groupId>
+			<artifactId>org.eclipse.osgi</artifactId>
+			<version>${equinox.version}</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi_R4_compendium</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Dependency on the Gemini Naming Bundle -->
+		<dependency>
+			<groupId>org.eclipse.gemini.naming</groupId>
+			<artifactId>org.eclipse.gemini.naming.impl.bundle-Incubation</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--
+			dependency on the Spring OSGi Test Framework for integration testing
+		-->
+		<dependency>
+			<groupId>org.springframework.osgi</groupId>
+			<artifactId>org.springframework.osgi.test</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<!--
+			The following dependencies seem to be required by the Spring OSGi
+			Test Framework
+		-->
+		<dependency>
+			<groupId>org.springframework.osgi</groupId>
+			<artifactId>log4j.osgi</artifactId>
+			<version>1.2.15-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.osgi</groupId>
+			<artifactId>spring-osgi-annotation</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.osgi</groupId>
+			<artifactId>spring-osgi-extender</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.logging</artifactId>
+			<version>1.1.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.objectweb.asm</groupId>
+			<artifactId>com.springsource.org.objectweb.asm</artifactId>
+			<version>2.2.3</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>
+
