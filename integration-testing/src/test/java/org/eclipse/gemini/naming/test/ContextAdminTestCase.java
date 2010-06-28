@@ -40,14 +40,6 @@ import org.osgi.service.jndi.JNDIProviderAdmin;
 
 public class ContextAdminTestCase extends NamingTestCase  {
 	
-	private static String VERSION = "1.0-SNAPSHOT";
-	
-	protected String[] getTestBundlesNames() {
-        return new String[]{ "org.eclipse.gemini.naming, org.eclipse.gemini.naming.impl.bundle-Incubation," + VERSION,
-        		             "org.osgi.service.jndi,org.osgi.service.jndi,1.0",
-                             };
-    }
-	
 	/**
 	 * Verifies that the JNDIProviderAdmin service is made 
 	 * available by the Gemini Naming implementation.

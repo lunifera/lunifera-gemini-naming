@@ -21,6 +21,7 @@
 
 package org.eclipse.gemini.naming.test;
 
+import java.io.File;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,10 +30,14 @@ import java.util.Set;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.osgi.test.AbstractConfigurableBundleCreatorTests;
 
 public abstract class NamingTestCase extends AbstractConfigurableBundleCreatorTests {
 
+	private static String VERSION = "1.0-SNAPSHOT";
+	
 	private Map m_mapOfServicesToRegistrations = 
 		new HashMap();
 
@@ -45,6 +50,51 @@ public abstract class NamingTestCase extends AbstractConfigurableBundleCreatorTe
         unregisterAllServices();
 	}
 	
+	/**
+	 * Declaratively specify the dependency on the Gemini Naming implementation bundle.  
+	 */
+	protected String[] getTestBundlesNames() {
+        return new String[]{ "org.eclipse.gemini.naming, org.eclipse.gemini.naming.impl.bundle-Incubation," + VERSION };
+    }
+	
+	
+	/**
+	 * This method overrides some of the loading of the dependencies for a Gemini
+	 * Naming integration test run.  Currently, the OSGi Enterprise API jar is not available
+	 * as a Maven bundle.  As a workaround, the Gemini Naming tests will use the bundles
+	 * that are set declaratively as a starting point, and then add the OSGi Enterprise API 
+	 * bundle as a file-based resource.  
+	 * 
+	 * Currently, this test depends upon the GEMINI_NAMING_HOME environment variable in order 
+	 * to locate the OSGi Enterprise API bundle.  Once this bundle is available from Maven, this
+	 * code should be removed and the maven dependency should be added to the getTestBundlesNames()
+	 * implementation above.  
+	 */
+	@Override
+	protected Resource[] getTestBundles() {
+		// get the existing set of test bundles
+		Resource[] generatedResources = super.getTestBundles();
+		// locate the OSGi Enterprise API jar
+		final String GEMINI_NAMING_HOME = 
+			System.getenv("GEMINI_NAMING_HOME");
+		String pathToEnterpriseJar = 
+			GEMINI_NAMING_HOME + File.separator + "lib" + File.separator + "osgi.enterprise.jar";
+		FileSystemResource resource = 
+			new FileSystemResource(pathToEnterpriseJar);
+		
+		Resource[] resourcesToReturn = 
+			new Resource[generatedResources.length + 1];
+		for(int i = 0; i < generatedResources.length; i++) {
+			resourcesToReturn[i] = generatedResources[i];
+		}
+		
+		// add the OSGi Enterprise API bundle to the list of test bundles
+		int newLength = resourcesToReturn.length;
+		resourcesToReturn[newLength - 1] = resource;
+		// return the new list
+		return resourcesToReturn;
+	}
+
 	protected void registerService(String serviceType, Object service, Dictionary properties) {
     	ServiceRegistration registration = 
     		bundleContext.registerService(serviceType, service, properties);

@@ -123,32 +123,6 @@ public class ActivatorTestCase extends TestCase {
 		
 		BundleContext bundleContextMock = 
 			mockSupport.createMock(BundleContext.class);
-		setupBundleContextMock(mockSupport, bundleContextMock);
-		// expect OSGi URLContextFactory 
-		Hashtable<String, Object> serviceProperties = new Hashtable<String, Object>();
-		serviceProperties.put(JNDIConstants.JNDI_URLSCHEME, "osgi");
-		setServiceRegistrationExpectation(mockSupport, bundleContextMock,
-				                          ObjectFactory.class.getName(), 
-				                          OSGiURLContextFactoryServiceFactory.class, serviceProperties);
-
-		// expect the "default" InitialContextFactoryBuilder
-		setServiceRegistrationExpectation(mockSupport, bundleContextMock,
-				                          InitialContextFactoryBuilder.class.getName(),
-				                          DefaultRuntimeInitialContextFactoryBuilder.class,
-				                          null);
-		
-		// expect the JNDIContextManager service registration
-		setServiceRegistrationExpectation(mockSupport, bundleContextMock, 
-				                          JNDIContextManager.class.getName(),
-				                          ContextManagerServiceFactoryImpl.class, 
-                						  null);
-		// expect the JNDIProviderAdmin service registration
-		setServiceRegistrationExpectation(mockSupport, bundleContextMock, 
-                						  JNDIProviderAdmin.class.getName(),
-                						  SecurityAwareProviderAdminImpl.class, 
-                						  null);
-		
-		
 		mockSupport.replayAll();
 		
 		// begin test
@@ -179,36 +153,8 @@ public class ActivatorTestCase extends TestCase {
 			// if already set, test can continue
 		}
 		
-		
-		
 		BundleContext bundleContextMock = 
 			mockSupport.createMock(BundleContext.class);
-		setupBundleContextMock(mockSupport, bundleContextMock);
-		// expect OSGi URLContextFactory 
-		Hashtable<String, Object> serviceProperties = new Hashtable<String, Object>();
-		serviceProperties.put(JNDIConstants.JNDI_URLSCHEME, "osgi");
-		setServiceRegistrationExpectation(mockSupport, bundleContextMock,
-				                          ObjectFactory.class.getName(), 
-				                          OSGiURLContextFactoryServiceFactory.class, serviceProperties);
-
-		// expect the "default" InitialContextFactoryBuilder
-		setServiceRegistrationExpectation(mockSupport, bundleContextMock,
-				                          InitialContextFactoryBuilder.class.getName(),
-				                          DefaultRuntimeInitialContextFactoryBuilder.class,
-				                          null);
-		
-		// expect the JNDIContextManager service registration
-		setServiceRegistrationExpectation(mockSupport, bundleContextMock, 
-				                          JNDIContextManager.class.getName(),
-				                          ContextManagerServiceFactoryImpl.class, 
-                						  null);
-		// expect the JNDIProviderAdmin service registration
-		setServiceRegistrationExpectation(mockSupport, bundleContextMock, 
-                						  JNDIProviderAdmin.class.getName(),
-                						  SecurityAwareProviderAdminImpl.class, 
-                						  null);
-		
-		
 		mockSupport.replayAll();
 		
 		// begin test

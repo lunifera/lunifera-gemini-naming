@@ -15,11 +15,23 @@
 
 package org.eclipse.gemini.naming;
 
+import java.security.AccessControlContext;
+import java.security.AccessControlException;
+import java.security.AccessController;
+import java.security.Permission;
+import java.security.PermissionCollection;
+import java.security.PrivilegedAction;
+import java.security.ProtectionDomain;
+import java.util.Enumeration;
+import java.util.Hashtable;
+
 import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.naming.OperationNotSupportedException;
 import javax.naming.spi.ObjectFactory;
 
 import org.easymock.EasyMockSupport;
+import org.osgi.framework.AdminPermission;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
@@ -64,37 +76,42 @@ public class OSGiURLContextFactoryTestCase extends TestCase {
 		mockSupport.verifyAll();
 	}
 	
-	public void testLookupBundleContext() throws Exception {
-		// not sure if this is easily unit testable, since 
+	public void testLookupBundleContextWithNoPermissions() throws Exception {
+		// not sure if testing this scenario is easily unit testable, since 
 		// there is interaction with the AccessController
+		// For now, test the failure condition of having a client without
+		// the correct permission
 		
-				// mock setup
-//		EasyMockSupport mockSupport = new EasyMockSupport();
-//		BundleContext bundleContextMock = 
-//			mockSupport.createMock(BundleContext.class);
-//		Bundle bundleMock = 
-//			mockSupport.createMock(Bundle.class);
-//		
-//		expect(bundleContextMock.getBundle()).andReturn(bundleMock);
-//		expect(bundleMock.getBundleId()).andReturn(new Long(10));
-//		expect(bundleMock.hasPermission(isA(Object.class))).andReturn(true);
-//		
-//		mockSupport.replayAll();
-//		// begin test
-//		ObjectFactory testFactory = 
-//			new OSGiURLContextFactory(bundleContextMock);
-//		Object result = 
-//			testFactory.getObjectInstance(null, null, null, null);
-//		assertTrue("OSGiURLContextFactory returned an object that is not a Context",
-//				   result instanceof Context);
-//		Context context = (Context)result;
-//		
-//		assertSame("OSGiURLContextFactory did not return the expected BundleContext instance",
-//				   bundleContextMock, context.lookup("osgi:framework/bundleContext"));
-//		
-//		
-//		mockSupport.verifyAll();
-		fail("test not implemented yet");
+		// mock setup
+		EasyMockSupport mockSupport = new EasyMockSupport();
+		BundleContext bundleContextMock = 
+			mockSupport.createMock(BundleContext.class);
+		final Bundle bundleMock = 
+			mockSupport.createMock(Bundle.class);
+		
+		expect(bundleContextMock.getBundle()).andReturn(bundleMock);
+		expect(bundleMock.getBundleId()).andReturn(new Long(10));
+		
+		mockSupport.replayAll();
+		// begin test
+		ObjectFactory testFactory = 
+			new OSGiURLContextFactory(bundleContextMock);
+		Object result = 
+			testFactory.getObjectInstance(null, null, null, null);
+		assertTrue("OSGiURLContextFactory returned an object that is not a Context",
+				   result instanceof Context);
+		final Context context = (Context)result;
+
+		try {
+			context.lookup("osgi:framework/bundleContext");
+			fail("NamingException should have been thrown");
+		} catch(NamingException namingException) {
+			// expected exception
+			assertTrue("NamingException did not contain the expected root exception",
+					   namingException.getRootCause() instanceof AccessControlException);
+		}
+		
+		mockSupport.verifyAll();
 	}
 	
 	public void testLookupService() throws Exception {

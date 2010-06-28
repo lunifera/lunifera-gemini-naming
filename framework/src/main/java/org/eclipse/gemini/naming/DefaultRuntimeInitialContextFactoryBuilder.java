@@ -41,8 +41,8 @@ class DefaultRuntimeInitialContextFactoryBuilder implements
 		Logger.getLogger(DefaultRuntimeInitialContextFactoryBuilder.class.getName());
 
 	public InitialContextFactory createInitialContextFactory(Hashtable environment) throws NamingException {
-
-		if (environment.get(Context.INITIAL_CONTEXT_FACTORY) != null) {
+		if ((environment != null) && 
+				(environment.get(Context.INITIAL_CONTEXT_FACTORY) != null)) {
 			final String initialContextFactoryName = 
 				(String) environment.get(Context.INITIAL_CONTEXT_FACTORY);
 

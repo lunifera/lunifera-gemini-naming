@@ -58,8 +58,6 @@ import org.osgi.framework.*;
  */
 public class FactoryResolutionTestCase extends NamingTestCase {
 
-	private static String VERSION = "1.0-SNAPSHOT";
-	
 	private ClassLoader m_oldClassLoader = null;
 	
 	protected void onSetUp() throws Exception {
@@ -67,12 +65,6 @@ public class FactoryResolutionTestCase extends NamingTestCase {
 		m_oldClassLoader = Thread.currentThread().getContextClassLoader();
 		Thread.currentThread().setContextClassLoader(new TestClassLoaderTwo());
 	}
-	
-	protected String[] getTestBundlesNames() {
-        return new String[]{ "org.eclipse.gemini.naming, org.eclipse.gemini.naming.impl.bundle-Incubation," + VERSION,
-        		             "org.osgi.service.jndi,org.osgi.service.jndi,1.0",
-                             };
-    }
 
 	
 	protected void onTearDown() throws Exception {

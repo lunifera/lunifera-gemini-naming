@@ -133,6 +133,7 @@ public class Activator implements BundleActivator {
 			NamingException namingException = 
 				new NamingException("Error occurred while attempting to set the IntialContextFactoryBuilder.");
 			namingException.setRootCause(illegalStateException);
+			throw namingException;
 		} 
 		catch(SecurityException securityException) {
 			logger.log(Level.SEVERE, 
@@ -141,6 +142,7 @@ public class Activator implements BundleActivator {
 			NamingException namingException = 
 				new NamingException("Error occurred while attempting to set the IntialContextFactoryBuilder.");
 			namingException.setRootCause(securityException);
+			throw namingException;
 		}
 	}
 	
@@ -161,6 +163,7 @@ public class Activator implements BundleActivator {
 			NamingException namingException = 
 				new NamingException("Error occurred while attempting to set the ObjectFactoryBuilder.");
 			namingException.setRootCause(illegalStateException);
+			throw namingException;
 		} 
 		catch(SecurityException securityException) {
 			logger.log(Level.SEVERE, 
@@ -169,6 +172,7 @@ public class Activator implements BundleActivator {
 			NamingException namingException = 
 				new NamingException("Error occurred while attempting to set the ObjectFactoryBuilder.");
 			namingException.setRootCause(securityException);
+			throw namingException;
 		}
 	}
 	

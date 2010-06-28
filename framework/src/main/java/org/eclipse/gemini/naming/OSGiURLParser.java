@@ -69,6 +69,7 @@ class OSGiURLParser {
 	}
 	
 	public boolean isServiceListURL() {
+		checkParserState();
 		return m_isServiceList;
 	}
 
