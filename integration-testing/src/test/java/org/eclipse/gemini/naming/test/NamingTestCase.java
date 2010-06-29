@@ -50,12 +50,40 @@ public abstract class NamingTestCase extends AbstractConfigurableBundleCreatorTe
         unregisterAllServices();
 	}
 	
+	
+	/**
+	 * Override getTestFrameworkBundlesNames() in order to modify the
+	 * dynamic dependency on Apache Log4J.  The Spring OSGi Test framework
+	 * relies by default on a SNAPSHOT version of Log4J.  
+	 * 
+	 * This method should be considered a workaround for this issue.  If future
+	 * versions of Spring OSGi Test use a later version of Log4J, then this 
+	 * method can/should be removed.  
+	 */
+	protected String[] getTestFrameworkBundlesNames() {
+		String[] originalBundleNames = super.getTestFrameworkBundlesNames();
+		
+		for(int i = 0; i < originalBundleNames.length; i++) {
+			if(originalBundleNames[i].startsWith("org.springframework.osgi,log4j.osgi")) {
+				// set framework to use apache log4j dependency instead
+				String newBundleName = 
+					"org.apache.log4j,com.springsource.org.apache.log4j,1.2.15";
+				originalBundleNames[i] = newBundleName;
+			}
+		}
+		
+		return originalBundleNames;
+	}
+	
+	
 	/**
 	 * Declaratively specify the dependency on the Gemini Naming implementation bundle.  
 	 */
 	protected String[] getTestBundlesNames() {
         return new String[]{ "org.eclipse.gemini.naming, org.eclipse.gemini.naming.impl.bundle-Incubation," + VERSION };
     }
+	
+	
 	
 	
 	/**

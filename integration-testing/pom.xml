@@ -55,9 +55,9 @@
 			Test Framework
 		-->
 		<dependency>
-			<groupId>org.springframework.osgi</groupId>
-			<artifactId>log4j.osgi</artifactId>
-			<version>1.2.15-SNAPSHOT</version>
+    		<groupId>org.apache.log4j</groupId>
+    		<artifactId>com.springsource.org.apache.log4j</artifactId>
+    		<version>1.2.15</version>
 		</dependency>
 
 		<dependency>
