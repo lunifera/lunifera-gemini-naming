@@ -29,20 +29,20 @@ import javax.naming.NoInitialContextException;
 import javax.naming.directory.DirContext;
 import javax.naming.spi.InitialContextFactory;
 
-public class ServiceAwareContextFactory {
+class ServiceAwareContextFactory {
 	
 	private static Logger logger = Logger.getLogger(ServiceAwareContextFactory.class.getName());
 	
 	/* private constructor to disallow creation of this class */
 	private ServiceAwareContextFactory() {}
 	
-	public static Context createServiceAwareContextWrapper(InitialContextFactory factory, Context internalContext, FactoryManager manager) {
+	static Context createServiceAwareContextWrapper(InitialContextFactory factory, Context internalContext, FactoryManager manager) {
 		return (Context) Proxy.newProxyInstance(ServiceAwareContextFactory.class.getClassLoader(),
                 								new Class[] {Context.class}, 
                 								new DefaultServiceAwareInvocationHandler(factory, internalContext, manager));
 	}
 	
-	public static DirContext createServiceAwareDirContextWrapper(InitialContextFactory factory, DirContext internalContext, FactoryManager manager) {
+	static DirContext createServiceAwareDirContextWrapper(InitialContextFactory factory, DirContext internalContext, FactoryManager manager) {
 		return (DirContext) Proxy.newProxyInstance(ServiceAwareContextFactory.class.getClassLoader(),
 												   new Class[] {DirContext.class}, 
 												   new DefaultServiceAwareInvocationHandler(factory, internalContext, manager));
