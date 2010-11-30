@@ -71,29 +71,17 @@
       <scope>test</scope>
     </dependency>
 
-   <!-- NEW DEPENDENCY ADDED AFTER CQ for unit testing --> 
    <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>com.springsource.org.easymock</artifactId>
       <version>2.5.2</version>
       <scope>test</scope>
     </dependency>
-   <!-- END OF NEW DEPENDENDIES AFTER CQ -->
-
-     <!-- temporary workaround until the correct way to handle the standard JNDI OSGi interfaces has been determined -->
-     <dependency>
-       <groupId>org.osgi.service.jndi</groupId>
-       <artifactId>org.osgi.service.jndi</artifactId>
-       <version>2.0</version>
-       <scope>system</scope>
-       <systemPath>${env.GEMINI_NAMING_HOME}/lib/osgi.enterprise.jar</systemPath>
-    </dependency>
 
   </dependencies>
 
    <build>
 	<plugins>
-	  <!-- NEW PLUGIN DEPENDENCY ADDED AFTER initial CQ -->
 	  <plugin>
              <groupId>org.apache.maven.plugins</groupId>
              <artifactId>maven-compiler-plugin</artifactId>
@@ -103,7 +91,6 @@
                <target>1.5</target>
 	     </configuration>
 	  </plugin>
-
         </plugins>
 
    </build>
