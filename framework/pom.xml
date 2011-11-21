@@ -15,12 +15,12 @@
    </parent>
 
    <dependencies>
-     <dependency>
-	<groupId>org.eclipse.osgi</groupId>
-	<artifactId>org.eclipse.osgi</artifactId>
-	<version>${equinox.version}</version>
-	<type>jar</type>
-     </dependency>
+     
+    <dependency>     
+	<groupId>org.eclipse</groupId>     
+	<artifactId>osgi</artifactId>     
+	<version>3.5.0.v20090520</version> 
+    </dependency> 
 
     
 
