@@ -17,14 +17,32 @@
 	<name>Integration Tests for the Gemini Naming Implementation</name>
 
 	<dependencies>
+		<dependency>     
+			<groupId>org.eclipse</groupId>     
+			<artifactId>osgi</artifactId>     
+			<version>3.5.0.v20090520</version> 
+		</dependency> 
+            
 		<dependency>
-			<groupId>org.eclipse.osgi</groupId>
-			<artifactId>org.eclipse.osgi</artifactId>
-			<version>${equinox.version}</version>
-			<type>jar</type>
-			<scope>provided</scope>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>com.springsource.slf4j.api</artifactId>
+		    <version>1.5.0</version>
 		</dependency>
+
 		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>com.springsource.slf4j.org.apache.commons.logging</artifactId>
+		    <version>1.5.0</version>
+		</dependency>
+
+		            
+           <dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>com.springsource.slf4j.log4j</artifactId>
+		    <version>1.5.0</version>
+		</dependency>
+      
+	      <dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>osgi_R4_compendium</artifactId>
 			<version>1.0</version>
@@ -44,10 +62,11 @@
 		<!--
 			dependency on the Spring OSGi Test Framework for integration testing
 		-->
-		<dependency>
-			<groupId>org.springframework.osgi</groupId>
-			<artifactId>org.springframework.osgi.test</artifactId>
-			<version>1.2.1</version>
+		
+ 		<dependency>     
+			<groupId>org.springframework.osgi</groupId>     
+			<artifactId>spring-osgi-test</artifactId>     
+			<version>1.2.1</version>     
 		</dependency>
 
 		<!--
