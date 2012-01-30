@@ -40,7 +40,7 @@
                   <Bundle-Name>Gemini Naming (Incubation)</Bundle-Name>
                   <Bundle-SymbolicName>org.eclipse.gemini.naming</Bundle-SymbolicName>
                   <Bundle-Vendor>Oracle</Bundle-Vendor>
-                  <Bundle-Version>0.9.0.M1</Bundle-Version>
+                  <Bundle-Version>1.0.0</Bundle-Version>
                   <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
                   <Bundle-Activator>org.eclipse.gemini.naming.Activator</Bundle-Activator>
                   <Bundle-Description>Gemini Naming bundle (Incubation)</Bundle-Description>
