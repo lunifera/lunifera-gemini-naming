@@ -33,7 +33,7 @@ import org.springframework.osgi.test.AbstractConfigurableBundleCreatorTests;
 
 public abstract class NamingTestCase extends AbstractConfigurableBundleCreatorTests {
 
-	private static String VERSION = "1.0-SNAPSHOT";
+	private static String VERSION = "1.0.0-SNAPSHOT";
 	
 	private Map m_mapOfServicesToRegistrations = 
 		new HashMap();
@@ -74,10 +74,10 @@ public abstract class NamingTestCase extends AbstractConfigurableBundleCreatorTe
 	
 	
 	/**
-	 * Declaratively specify the dependency on the Gemini Naming implementation bundle.  
+	 * Declaratively specify the dependency on the Gemini Naming bundle.  
 	 */
 	protected String[] getTestBundlesNames() {
-        return new String[]{ "org.eclipse.gemini.naming, org.eclipse.gemini.naming.impl.bundle-Incubation," + VERSION };
+        return new String[]{ "org.eclipse.gemini.naming," + VERSION };
     }
 
 
