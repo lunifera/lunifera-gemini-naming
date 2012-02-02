@@ -77,7 +77,7 @@ public abstract class NamingTestCase extends AbstractConfigurableBundleCreatorTe
 	 * Declaratively specify the dependency on the Gemini Naming bundle.  
 	 */
 	protected String[] getTestBundlesNames() {
-        return new String[]{ "org.eclipse.gemini.naming," + VERSION };
+        return new String[]{ "org.eclipse.gemini.naming, org.eclipse.gemini.naming," + VERSION };
     }
 
 

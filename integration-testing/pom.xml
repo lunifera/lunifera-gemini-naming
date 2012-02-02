@@ -14,7 +14,7 @@
 	<artifactId>gemini-naming-integration-testing</artifactId>
 
 	<packaging>jar</packaging>
-	<name>Integration Tests for the Gemini Naming Implementation</name>
+	<name>Integration Tests for Gemini Naming</name>
 
 	<dependencies>
 		<dependency>     
