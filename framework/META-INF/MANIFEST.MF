@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Gemini Naming (Incubation)
+Bundle-SymbolicName: org.eclipse.gemini.naming
+Bundle-Vendor: Oracle
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.gemini.naming.Activator
+Bundle-Description: Gemini Naming bundle (Incubation)
+Bundle-Category: jndi
+Export-Package: org.eclipse.gemini.naming,
+ org.osgi.service.jndi
+Import-Package: javax.naming,
+ javax.naming.directory,
+ javax.naming.spi,
+ org.osgi.framework,
+ org.osgi.service.jndi,
+ org.osgi.util.tracker
+

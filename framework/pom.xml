@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.gemini.naming</groupId>
   <artifactId>org.eclipse.gemini.naming</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>eclipse-plugin</packaging>
   <version>1.0.0-SNAPSHOT</version>
   <name>Gemini Naming Bundle</name>
   <url>http://maven.apache.org</url>
@@ -13,45 +13,5 @@
       <artifactId>org.eclipse.gemini.naming.parent</artifactId>
       <version>1.0.0-SNAPSHOT</version>
    </parent>
-
-   <dependencies>
-     <dependency>     
-	   <groupId>org.eclipse</groupId>     
-	   <artifactId>osgi</artifactId>     
-	   <version>3.5.0.v20090520</version> 
-     </dependency>
-   </dependencies>
-
-   <build>
-      <plugins>
-         <plugin>
-            <!--
-               this is the BND plugin which generates the actual OSGi bundle for
-               this project. You can find the documentation for this plugin at
-               http://is.gd/hL7p
-            -->
-            <groupId>org.apache.felix</groupId>
-            <artifactId>maven-bundle-plugin</artifactId>
-            <extensions>true</extensions>
-            <configuration>
-               <instructions>
-                  <Include-Resource>{maven-resources}</Include-Resource>
-                  <obrRepository>NONE</obrRepository>
-                  <Bundle-Name>Gemini Naming (Incubation)</Bundle-Name>
-                  <Bundle-SymbolicName>org.eclipse.gemini.naming</Bundle-SymbolicName>
-                  <Bundle-Vendor>Oracle</Bundle-Vendor>
-                  <Bundle-Version>1.0.0</Bundle-Version>
-                  <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
-                  <Bundle-Activator>org.eclipse.gemini.naming.Activator</Bundle-Activator>
-                  <Bundle-Description>Gemini Naming bundle (Incubation)</Bundle-Description>
-                  <Bundle-Category>jndi</Bundle-Category>
-                  <Import-Package>org.osgi.service.jndi,*</Import-Package>
-               </instructions>
-            </configuration>
-         </plugin>
-      </plugins>
-   </build>
-
-
 
 </project>
