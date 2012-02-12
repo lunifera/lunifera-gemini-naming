@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Gemini Naming (Incubation)
 Bundle-SymbolicName: org.eclipse.gemini.naming
-Bundle-Vendor: Oracle
+Bundle-Vendor: Eclipse.org
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.gemini.naming.Activator
 Bundle-Description: Gemini Naming bundle (Incubation)
