@@ -183,7 +183,7 @@ class BuilderUtils {
 				
 				
 			int indexOfConstructor = -1;
-			for(int i = 0; i < callStack.length; i++) {
+			for(int i = 0; callStack != null && i < callStack.length; i++) {
 				if(callStack[i].getName().equals(namingClassType)) {
 					indexOfConstructor = i;
 				}

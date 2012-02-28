@@ -668,9 +668,9 @@ class OSGiInitialContextFactoryBuilder implements
 				URL propertiesURL = bundle.getResource(JNDI_PROPERTIES_FILE_NAME);
 				if (propertiesURL != null) {
 					File jndiPropertiesFile = (File) propertiesURL.getContent();
+					FileInputStream userDefinedPropertiesStream = null;
 					try {
-						FileInputStream userDefinedPropertiesStream = 
-							new FileInputStream(jndiPropertiesFile);
+						userDefinedPropertiesStream = new FileInputStream(jndiPropertiesFile);
 						Properties fileDefinedJndiProperties = new Properties();
 						fileDefinedJndiProperties.load(userDefinedPropertiesStream);
 						return fileDefinedJndiProperties; 
@@ -679,6 +679,16 @@ class OSGiInitialContextFactoryBuilder implements
 						// this exception should never occur, since the File has
 						// already been tested to be available
 						logger.log(Level.FINEST, "Exception encountered while trying to locate a jndi.properties file.", e);
+					}
+					finally {
+						if (userDefinedPropertiesStream != null) {
+							try {
+								userDefinedPropertiesStream.close();
+							} 
+							catch (IOException e) {
+								logger.log(Level.FINEST, "Exception encountered while trying to close a jndi.properties file.", e);
+							}
+						}
 					}
 				}
 			}

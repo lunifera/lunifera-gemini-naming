@@ -60,7 +60,7 @@ class TraditionalObjectFactoryBuilder implements ObjectFactoryBuilder {
 		return new TraditionalObjectFactory(clientBundleContext);
 	}
 	
-	private class TraditionalObjectFactory implements DirObjectFactory {
+	private static class TraditionalObjectFactory implements DirObjectFactory {
 
 		private final BundleContext m_clientBundleContext;
 		
