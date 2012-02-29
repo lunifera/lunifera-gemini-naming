@@ -107,5 +107,22 @@ public abstract class NamingTestCase extends AbstractConfigurableBundleCreatorTe
     protected BundleContext getContext() {
    	  	return bundleContext;
     }
-	
+
+	/**
+	 * Indicates if the automatic manifest creation should consider only the
+	 * test class (<code>true</code>) or all classes included in the test
+	 * bundle(<code>false</code>). The latter should be used when the test
+	 * bundle contains additional classes that help with the test case.
+	 * 
+	 * <p/> By default, this method returns <code>true</code>, meaning that
+	 * only the test class will be searched for dependencies.
+	 * 
+	 * @return true if only the test hierarchy is searched for dependencies or
+	 *         false if all classes discovered in the test archive need to be
+	 *         parsed.
+	 */
+	protected boolean createManifestOnlyFromTestClass() {
+		return false;
+	}
+
 }
