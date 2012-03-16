@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 Oracle.
+ * Copyright (c) 2010, 2012 Oracle.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * and Apache License v2.0 which accompanies this distribution. 
@@ -80,7 +80,11 @@ class OSGiURLParser {
 	
 	private void parseURLData(final String prefix) {
 		String urlData = m_osgiURL.substring(prefix.length());
-		int indexOfSlash = urlData.indexOf("/");
+		if ('/' == urlData.charAt(0)) {
+			throw new IllegalStateException(
+					"URL did not conform to the OSGi URL Syntax - No Service Interface specified");
+		}
+		int indexOfSlash = urlData.indexOf("/(");
 		if (indexOfSlash != -1) {
 			// interpret everything after the slash to be an OSGi filter
 			// string

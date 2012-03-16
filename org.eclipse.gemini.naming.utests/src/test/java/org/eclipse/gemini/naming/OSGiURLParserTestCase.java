@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 Oracle.
+ * Copyright (c) 2010, 2012 Oracle.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * and Apache License v2.0 which accompanies this distribution. 
@@ -49,21 +49,49 @@ public class OSGiURLParserTestCase extends TestCase {
 			    urlParserServiceList.hasFilter());
 		assertTrue("Parser did not correctly interpret URL, servicelist",
 			    urlParserServiceList.isServiceListURL());
+
+
+		OSGiURLParser urlParserJndiName = 
+			new OSGiURLParser("osgi:service/another/TestService");
+		// should return without exception
+		urlParserJndiName.parse();
+		// verify correct information was parsed
+		assertEquals("Parser did not correctly return service interface",
+			     "another/TestService", urlParserJndiName.getServiceInterface());
+		assertNull("Parser did not correctly return a null filter", urlParserJndiName.getFilter());
+		assertFalse("Parser did not correctly parse URL, no filter present",
+			    urlParserJndiName.hasFilter());
+		assertFalse("Parser did not correctly interpret URL, servicelist",
+			    urlParserJndiName.isServiceListURL());
 	}
 	
 	public void testParseFilter() throws Exception {
-		OSGiURLParser urlParser = new OSGiURLParser("osgi:service/com.oracle.TestService/testFilter");
+		OSGiURLParser urlParser = new OSGiURLParser("osgi:service/com.oracle.TestService/(testFilter)");
 		// should return without exception
 		urlParser.parse();
 		// verify correct information was parsed
 		assertEquals("Parser did not correctly return service interface",
 				     "com.oracle.TestService", urlParser.getServiceInterface());
-		assertEquals("Parser did not correctly return the expected filter", 
-				     "testFilter", urlParser.getFilter());
 		assertTrue("Parser did not correctly parse URL, filter present",
 				    urlParser.hasFilter());
+		assertEquals("Parser did not correctly return the expected filter", 
+				     "(testFilter)", urlParser.getFilter());
 		assertFalse("Parser did not correctly interpret URL, no servicelist",
 				    urlParser.isServiceListURL());
+
+
+		OSGiURLParser urlParserJndiName = new OSGiURLParser("osgi:service/another/TestService/(testFilter)");
+		// should return without exception
+		urlParserJndiName.parse();
+		// verify correct information was parsed
+		assertEquals("Parser did not correctly return service interface",
+				     "another/TestService", urlParserJndiName.getServiceInterface());
+		assertTrue("Parser did not correctly parse URL, filter present",
+				    urlParserJndiName.hasFilter());
+		assertEquals("Parser did not correctly return the expected filter", 
+				     "(testFilter)", urlParserJndiName.getFilter());
+		assertFalse("Parser did not correctly interpret URL, no servicelist",
+				    urlParserJndiName.isServiceListURL());
 	}
 	
 	public void testParseError() throws Exception {
