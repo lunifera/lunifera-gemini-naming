@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 Oracle.
+ * Copyright (c) 2010, 2012 Oracle.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * and Apache License v2.0 which accompanies this distribution. 
@@ -15,6 +15,7 @@
 
 package org.eclipse.gemini.naming;
 
+import java.lang.reflect.Field;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -26,6 +27,7 @@ import javax.naming.NamingException;
 import javax.naming.spi.InitialContextFactoryBuilder;
 import javax.naming.spi.NamingManager;
 import javax.naming.spi.ObjectFactory;
+import javax.naming.spi.ObjectFactoryBuilder;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -114,6 +116,8 @@ public class Activator implements BundleActivator {
 				(ServiceRegistration)iterator.next();
 			serviceRegistration.unregister();
 		}
+		
+		unregisterSingletons();
 	}
 
 
@@ -173,6 +177,33 @@ public class Activator implements BundleActivator {
 				new NamingException("Error occurred while attempting to set the ObjectFactoryBuilder.");
 			namingException.setRootCause(securityException);
 			throw namingException;
+		}
+	}
+		
+	/**
+	 * Unregisters the InitialContextFactoryBuilder static singleton
+	 * and the ObjectFactoryBuilder static singleton.
+	 */
+	private static void unregisterSingletons() {
+		Field[] fields = NamingManager.class.getDeclaredFields();
+		if (fields != null && fields.length > 0) {
+			for (Field field: fields) {
+				if (InitialContextFactoryBuilder.class.equals(field.getType()) 
+						|| ObjectFactoryBuilder.class.equals(field.getType())){
+					field.setAccessible(true);
+					try {
+						field.set(null, null);
+					} catch (IllegalArgumentException e) {
+						logger.log(Level.SEVERE,
+								   "Unable to reset NamingManager static singleton " + field.getType(),
+								   e);
+					} catch (IllegalAccessException e) {
+						logger.log(Level.SEVERE,
+								   "Unable to reset NamingManager static singleton " + field.getType(),
+								   e);
+					}
+				}
+			}
 		}
 	}
 	
