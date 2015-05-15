@@ -29,7 +29,7 @@
 <!-- 		<module>org.eclipse.gemini.naming.utests</module> -->
 <!-- 		<module>integration-testing</module> -->
 		<module>org.eclipse.gemini.naming.target</module>
-		<module>org.eclipse.gemini.naming.feature</module>
+		<module>org.lunifera.org.eclipse.gemini.naming.feature</module>
 <!-- 		<module>org.eclipse.gemini.naming.repository</module> -->
 <!-- 		<module>org.lunifera.org.eclipse.gemini.naming.p2</module> -->
 	</modules>

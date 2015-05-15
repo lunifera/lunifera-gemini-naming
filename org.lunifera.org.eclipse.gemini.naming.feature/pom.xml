@@ -7,7 +7,7 @@
 		<version>1.1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>org.eclipse.gemini.naming.feature</artifactId>
+	<artifactId>org.lunifera.org.eclipse.gemini.naming.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
 	<name>Gemini Naming Feature</name>
 	
