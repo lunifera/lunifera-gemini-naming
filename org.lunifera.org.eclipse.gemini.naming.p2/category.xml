@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature id="org.eclipse.gemini.naming.feature">
+   <feature id="org.lunifera.org.eclipse.gemini.naming.feature">
       <category name="lunifera-gemini-naming"/>
    </feature>
-   <feature id="org.eclipse.gemini.naming.feature.source">
+   <feature id="org.lunifera.org.eclipse.gemini.naming.feature.source">
       <category name="lunifera-gemini-naming"/>
    </feature>
    
