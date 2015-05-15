@@ -218,7 +218,7 @@ public class Activator implements BundleActivator {
 	 * 
 	 */
 	private void registerOSGiURLContextFactory() {
-		Hashtable<Object, Object> serviceProperties = new Hashtable<Object, Object>();
+		Hashtable<String, Object> serviceProperties = new Hashtable<String, Object>();
 		serviceProperties.put(JNDIConstants.JNDI_URLSCHEME, OSGI_URL_SCHEME);
 
 		ServiceRegistration serviceRegistration = 
@@ -242,7 +242,7 @@ public class Activator implements BundleActivator {
 					                        null);
 		m_listOfServiceRegistrations.add(serviceRegistration);
 		
-		Hashtable<Object, Object> props = new Hashtable<Object, Object>();
+		Hashtable<String, Object> props = new Hashtable<String, Object>();
         props.put(JNDIConstants.JNDI_URLSCHEME, RMI_URL_SCHEME);
 		try {
 			ServiceRegistration rmiRegistration = 

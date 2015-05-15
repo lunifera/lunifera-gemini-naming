@@ -114,57 +114,58 @@ class ReflectionUtils {
 	 * @return a ServiceProxyInfo instance, which includes the proxy or underlying service.
 	 */
 	static ServiceProxyInfo getProxyForSingleService(BundleContext bundleContext, OSGiURLParser urlParser, ServiceReference serviceReference, InvocationHandlerFactory handlerFactory) {
-		final Object requestedService = 
-			bundleContext.getService(serviceReference);
-		ClassLoader tempLoader = null;
-		try {
-			tempLoader = (ClassLoader)SecurityUtils.invokePrivilegedAction(new PrivilegedExceptionAction() {
-				@Override
-				public Object run() throws Exception {
-					return requestedService.getClass().getClassLoader();
-				}
-			});
-		} catch (Exception e) {
-			logger.log(Level.FINE, 
-					   "Exception occurred while trying to obtain OSGi service's ClassLoader",
-					   e);
-		} 
-			
-		try {
-			Class clazz = Class.forName(urlParser.getServiceInterface(), true, tempLoader);
-			if (clazz.isInterface()) {
-				InvocationHandler handler = 
-					handlerFactory.create(bundleContext, serviceReference, urlParser, requestedService);
-				final Object serviceProxy = Proxy.newProxyInstance(tempLoader, new Class[] {clazz}, handler);
-				return new ServiceProxyInfo(serviceProxy, handler, true);
-			}
-			else {
-				logger.log(Level.WARNING, 
-						   "The service type " + clazz.getName() + 
-						   " is not an interface.  The Gemini Naming implementation cannot generate a proxy for this service.");
-				return new ServiceProxyInfo(requestedService, null, false);
-			}
-		}
-		catch (ClassNotFoundException classNotFoundException) {
-			tempLoader = requestedService.getClass().getClassLoader();
-			final Class[] interfaces = getInterfaces(serviceReference, bundleContext, tempLoader);
-			if (interfaces.length > 0) {
-				InvocationHandler handler = 
-					handlerFactory.create(bundleContext, serviceReference, 
-							              urlParser, requestedService);
-				final Object serviceProxy = Proxy.newProxyInstance(tempLoader, interfaces, handler);
-				return new ServiceProxyInfo(serviceProxy, handler, true);
-			}
-			else {
-				logger.log(Level.WARNING,
-						   "No compatible interfaces could be found for this OSGi service, type = " +
-						   requestedService.getClass().getName() + ".  The Gemini Naming implementation cannot generate a proxy for this service.");
+        final Object requestedService = 
+            bundleContext.getService(serviceReference);
+        ClassLoader tempLoader = null;
+        try {
+            tempLoader = (ClassLoader)SecurityUtils.invokePrivilegedAction(new PrivilegedExceptionAction() {
+                @Override
+                public Object run() throws Exception {
+                    return requestedService.getClass().getClassLoader();
+                }
+            });
+        } catch (Exception e) {
+            logger.log(Level.FINE, 
+                       "Exception occurred while trying to obtain OSGi service's ClassLoader",
+                       e);
+        } 
+            
+//        try {
+//            Class clazz = Class.forName(urlParser.getServiceInterface(), true, tempLoader);
+//            if (clazz.isInterface()) {
+//                InvocationHandler handler = 
+//                    handlerFactory.create(bundleContext, serviceReference, urlParser, requestedService);
+//                final Object serviceProxy = Proxy.newProxyInstance(tempLoader, new Class[] {clazz}, handler);
+//                return new ServiceProxyInfo(serviceProxy, handler, true);
+//            }
+//            else {
+//                logger.log(Level.WARNING, 
+//                           "The service type " + clazz.getName() + 
+//                           " is not an interface.  The Gemini Naming implementation cannot generate a proxy for this service.");
+//                return new ServiceProxyInfo(requestedService, null, false);
+//            }
+//        }
+//        catch (ClassNotFoundException classNotFoundException) {
+            tempLoader = requestedService.getClass().getClassLoader();
+            final Class[] interfaces = getInterfaces(serviceReference, bundleContext, tempLoader);
+            if (interfaces.length > 0) {
+                InvocationHandler handler = 
+                    handlerFactory.create(bundleContext, serviceReference, 
+                                          urlParser, requestedService);
+                final Object serviceProxy = Proxy.newProxyInstance(tempLoader, interfaces, handler);
+                return new ServiceProxyInfo(serviceProxy, handler, true);
+            }
+            else {
+                logger.log(Level.WARNING,
+                           "No compatible interfaces could be found for this OSGi service, type = " +
+                           requestedService.getClass().getName() + ".  The Gemini Naming implementation cannot generate a proxy for this service.");
 
-				throw new IllegalArgumentException("No compatible interfaces could be found for this OSGi service, type = " +
-						   urlParser.getServiceInterface() + " (probably a JNDI Service Name)" + ".  The Gemini Naming implementation cannot generate a proxy for this service.");
-			}
-		}
-	}
+                throw new IllegalArgumentException("No compatible interfaces could be found for this OSGi service, type = " +
+                           urlParser.getServiceInterface() + " (probably a JNDI Service Name)" + ".  The Gemini Naming implementation cannot generate a proxy for this service.");
+            }
+//        }
+    }
+
 	
 	
 	private static boolean isAssignable(ServiceReference serviceReference, BundleContext bundleContext, Class clazz) {

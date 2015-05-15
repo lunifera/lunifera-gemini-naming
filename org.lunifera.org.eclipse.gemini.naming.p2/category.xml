@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="org.eclipse.gemini.naming.feature">
+      <category name="lunifera-gemini-naming"/>
+   </feature>
+   <feature id="org.eclipse.gemini.naming.feature.source">
+      <category name="lunifera-gemini-naming"/>
+   </feature>
+   
+   <category-def name="lunifera-gemini-naming" label="Lunifera Fork of Gemini Naming"/>
+</site>

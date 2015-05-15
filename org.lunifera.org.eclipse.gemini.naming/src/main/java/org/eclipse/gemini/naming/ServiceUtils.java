@@ -99,7 +99,7 @@ class ServiceUtils {
 				+ JNDIConstants.JNDI_SERVICENAME + "="
 				+ urlParser.getServiceInterface() + ")";
 		ServiceReference[] serviceReferencesByName = 
-			bundleContext.getServiceReferences(null, serviceNameFilter);
+			bundleContext.getServiceReferences((String) null, (String) serviceNameFilter);
 		return serviceReferencesByName;
 	}
 	

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Gemini Naming
-Bundle-SymbolicName: org.eclipse.gemini.naming
+Bundle-SymbolicName: org.lunifera.org.eclipse.gemini.naming
 Bundle-Vendor: Eclipse.org
 Bundle-Version: 1.1.0.qualifier
 Bundle-Activator: org.eclipse.gemini.naming.Activator
