@@ -70,6 +70,11 @@ class OSGiURLContextFactory implements ObjectFactory {
 			m_bundleContext = bundleContext;
 		}
 		
+		// TODO Lunifera fixed bug
+        @Override
+        public Object lookup(Name name) throws NamingException {
+            return lookup(name.toString());
+        }
 
 		@Override
 		public Object lookup(String name) throws NamingException {
